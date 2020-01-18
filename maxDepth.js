@@ -23,7 +23,7 @@ function TreeNode(val) {
  * @return {number}
  */
 var maxDepth = function (root) {
-  if(root == null) return 0;
+  if (root == null) return 0;
   return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
 }
 /*
@@ -62,5 +62,46 @@ node11.right = node22;
 node22.left = node31;
 node22.right = node32;
 
-let ans = maxDepth(root);
+// let ans = maxDepth(root);
+// console.log(ans);
+
+/*
+root not null,if root == null, return 0
+defined stack, depth
+push root to stack
+while stack not empty{
+  stack.size
+  depth++
+  for, length is size
+    stack pop node
+    if pop node.left != null
+      node.left push to stack
+    if pop node.right != null
+      node.right push to stack
+}
+return depth
+*/
+function maxDepth2(root) {
+  if (root == null) return 0;
+  let stack = [];
+  let depth = 0;
+  stack.push(root);
+
+  while (stack.length > 0) {
+    let size = stack.length;
+    depth++;
+    for (let i = 0; i < size; i++) {
+      let node = stack.shift();
+      if (node.left != null) {
+        stack.push(node.left);
+      }
+      if (node.right != null) {
+        stack.push(node.right);
+      }
+    }
+  }
+  return depth;
+}
+
+let ans = maxDepth2(root);
 console.log(ans);
