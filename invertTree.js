@@ -1,3 +1,13 @@
+/*
+recursion(root){
+  if root==null => null
+  left = recursion(root.left)
+  right = recursion(root.right)
+  root.left = right
+  root.right = left
+  return root
+}
+*/
 /**
  * Definition for a binary tree node.
  * function TreeNode(val) {
