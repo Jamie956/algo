@@ -1,13 +1,7 @@
 /*
-Input: [2, 6, 4, 8, 10, 9, 15]
-Output: 5
-Explanation:
-[6, 4, 8, 10, 9]
+581. Shortest Unsorted Continuous Subarray
 
-foreach nums
-  if end nums[length - 1 - i] > left min num, l edge = end num index, else end nums[length - 1 - i] is min
-  if right max num > start nums[i], r edge = start num index, else start nums[i] is max
-if r>l, length = r - l +1  
+Given an integer array, you need to find one continuous subarray that if you only sort this subarray in ascending order, then the whole array will be sorted in ascending order, too.
 */
 
 /**
@@ -15,25 +9,30 @@ if r>l, length = r - l +1
  * @return {number}
  */
 var findUnsortedSubarray = function (nums) {
-  let size = nums.length;
-  let leftEdgeMinNum = nums[size - 1];
-  let rightEdgeMaxNum = nums[0];
-  let l = 0;
-  let r = 0;
+  let l = r = 0, max = nums[0], min = nums[nums.length - 1];
 
-  for (let i = 0; i < size; i++) {
-    (nums[size - 1 - i] > leftEdgeMinNum) ? (l = size - 1 - i) : (leftEdgeMinNum = nums[size - 1 - i]);
-    (rightEdgeMaxNum > nums[i]) ? (r = i) : (rightEdgeMaxNum = nums[i]);
+  for (let i = 0; i < nums.length; i++) {
+    let start = i, end = nums.length - 1 - i;
+    nums[end] <= min ? min = nums[end] : l = end;
+    max <= nums[start] ? max = nums[start] : r = start;
   }
-
-  return l < r ? r - l + 1 : 0;
+  return r > l ? r - l + 1 : 0;
 };
 
+/*
+给出一个整数数组，可能存在这样的一个连续数组，当给这个连续数组排序后，整数数组变成升序，求这个连续数组的长度
+求长度也就是左右边界索引之差
+使用双指针
+左边界指针为l，右边界指针为r
+l从数组末尾开始扫描，要找出左边边界，定义一个最小值min，如果nums[len-1-i]>min，说明不符合升序的规则，l指针=len-1-i，每个nums[i]都应该比之前的min小
+r从数组开始扫描，要找右边边界，即读取的每一个num[i]要比上一个最大值max大，否则说明nums[i]是降序的，移动指针r=i
+连续数组长度就是指针之差：r-l+1
+*/
 
 let nums;
-nums = [2, 6, 4, 8, 10, 9, 15];//5
+// nums = [2, 6, 4, 8, 10, 9, 15];//5
 // nums = [1,3,2,2,2];//4
 // nums = [1,2,3,3,3];//0
+nums = [-1, -1, -1, -1];//0
 
-let res = findUnsortedSubarray(nums);
-console.log(res);
+console.log(findUnsortedSubarray(nums));
