@@ -1,3 +1,15 @@
+/*
+101. Symmetric Tree
+Given a binary tree, check whether it is a mirror of itself (ie, symmetric around its center).
+
+判断一棵树是否是对称
+树用递归
+递归参数 node.left, node.right
+要比较对称的节点，递归函数传参(node.left,node.right)，走到树枝末尾就是最左的节点，和最右的节点，另一个方向(node.right,node.left)
+终止条件1）两个节点都为null=>true, 2）只有其中一个节点null=>false，3）两个节点的值相等=>true，4）两个节点的值不相等=>false
+返回值 boolean
+*/
+
 function TreeNode(val){
   this.val = val;
   this.left = null;
@@ -5,29 +17,17 @@ function TreeNode(val){
 }
 
 /**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
- */
-/**
  * @param {TreeNode} root
  * @return {boolean}
  */
 function isSymmetric(root) {
-  return isMirror(root, root);
+  return recursion(root, root);
 }
 
-function isMirror(t1, t2) {
-  /*
-  t1 == null, t2 == null  //both null, symmetric
-  t1 == null or t2 == null //one of null, not symmetric
-  t1 != null, t2 != null //both not null, to compare there value
-  */
-  if(t1==null && t2==null) return true;
-  if(t1==null || t2==null) return false;
-  if(t1.val != t2.val) return false;
+function recursion(t1, t2) {
+  if(t1==null && t2==null) return true;//both null, symmetric
+  if(t1==null || t2==null) return false;//one of null, not symmetric
+  if(t1.val != t2.val) return false;//both not null, to compare there value
   return isMirror(t1.left, t2.right) && isMirror(t1.right, t2.left);
 }
 
@@ -61,19 +61,11 @@ isMirror(null',null)
 */
 
 let root = new TreeNode(1);
-let node11 = new TreeNode(2);
-let node12 = new TreeNode(2);
-let node21 = new TreeNode(3);
-let node22 = new TreeNode(4);
-let node23 = new TreeNode(4);
-let node24 = new TreeNode(3);
+root.left = new TreeNode(2);
+root.left.left = new TreeNode(3);
+root.left.right = new TreeNode(4);
+root.right = new TreeNode(2);
+root.right.left = new TreeNode(4);
+root.right.right = new TreeNode(3);
 
-root.left = node11;
-root.right = node12;
-node11.left = node21;
-node11.right = node22;
-node12.left = node23;
-node12.right = node24;
-
-let ans = isSymmetric(root);
-console.log(ans);
+console.log(isSymmetric(root));
