@@ -1,99 +1,38 @@
 /*
-Given an array of size n, 
-find the majority element. 
-The majority element is the element 
-that appears more than ⌊ n/2 ⌋ times.
+169. Majority Element
+Given an array of size n, find the majority element. The majority element is the element that appears more than ⌊ n/2 ⌋ times.
 
+给出一个数组，长度为n，数组存在值相等的元素，这些元素出现次数大于n/2，求这个数
 
 */
 
-/**
- * @param {number[]} nums
- * @return {number}
- */
-/*
-foreach nums, current num compare to every num
-  if num == compare element, count++
-  if count > n/2, return this num
-*/
-var majorityElement1 = function(nums) {
-  let majorityCount = nums.length/2;
-  for(num of nums){
-    let count = 0;
-    for(compare of nums){
-      if(num == compare){
-        count++;
-      }
-    }
-    if(count > majorityCount){
-      return num;
-    }
+var majorityElement2 = function (nums) {
+  let map = new Map();
+  for (let num of nums) {
+    if (!map.has(num)) map.set(num, 0);
+    let val = map.get(num) + 1;
+    if (val > nums.length / 2) return num;
+    map.set(num, val);
   }
-};
-
-let ans;
-ans = majorityElement1([2,2,1,1,1,2,2]);
-// console.log(ans);
-
-
-/*
-new hashMap
-num->key, count->value
-
-defined maxCountNum, maxCount
-
-foreach nums
-  current num is key, that value count++
-  if count > maxCount && count > n/2
-    maxCount = count
-    maxCountNum = num
-return maxCountNum
-*/
-var majorityElement2 = function(nums) {
-  let maxCountNum = 0;
-  let maxCount = 0;
-  let json = {};
-  for(let num of nums){
-    if(!json[num]){
-      json[num] = 0;
-    }
-    json[num] = json[num] + 1;
-    if(json[num]>maxCount && json[num]>(nums.length/2)){
-      maxCount = json[num];
-      maxCountNum = num;
-    }
-  }
-  return maxCountNum;
 }
 
-ans = majorityElement2([2,2,1,1,1,2,2]);
-// console.log(ans);
+// console.log(majorityElement2([2, 2, 1, 1, 1, 2, 2]));
 
 /*
-[7,7,7,7,x,y,z]
-4x7
-4>n/2
-4-3>0
-
-defined candidate=nums[0], count=1
-foreach nums, from index=1
-  if count==0, reset candidate
-  count += current num == candidate ? 1 : -1;
-return candidate
+投票
+遇到跟自己相同的加一票，遇到跟自己不相同的减一票，当票数为0时，重设候选人
+最多票数的一定是出现次数最多的
 */
-var majorityElement3 = function(nums) {
-  let candidate = nums[0];
-  let count = 1;
-  for (let i = 1; i < nums.length; i++) {
-    if(count == 0){
-      candidate = nums[i];
-    }
-    count += (nums[i] == candidate) ? 1 : -1;
+var majorityElement3 = function (nums) {
+  let candidate;
+  let vote = 0;
+  for (let num of nums) {
+    if (vote == 0) candidate = num;
+    vote += (num == candidate) ? 1 : -1;
   }
   return candidate;
 }
 
-ans = majorityElement3([2,2,1,1,1,2,2]);
-console.log(ans);
+console.log(majorityElement3([6,5,5]));
 
 
