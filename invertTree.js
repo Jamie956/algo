@@ -1,54 +1,35 @@
 /*
-recursion(root){
-  if root==null => null
-  left = recursion(root.left)
-  right = recursion(root.right)
-  root.left = right
-  root.right = left
-  return root
-}
+226. Invert Binary Tree
+Invert a binary tree.
+
+交换两个对称位置的节点的值
+树结构考虑递归
+终止条件 node==null
+递归参数 node.left, node.right
+返回反转树
+实质上是交换每个节点的左右节点
 */
-/**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
- */
-/**
- * @param {TreeNode} root
- * @return {TreeNode}
- */
+
 function TreeNode(val) {
   this.val = val;
   this.left = null;
   this.right = null;
 }
 var invertTree = function (root) {
-  if (root == null) {
-    return null;
-  }
-  let left = invertTree(root.left);
-  let right = invertTree(root.right);
-  root.left = right;
-  root.right = left;
+  if (root == null) return null;
+  let l = invertTree(root.left);
+  let r = invertTree(root.right);
+  root.left = r;
+  root.right = l;
   return root;
 }
 
 let root = new TreeNode(4);
-let l1n1 = new TreeNode(2);
-let l1n2 = new TreeNode(7);
-let l2n1 = new TreeNode(1);
-let l2n2 = new TreeNode(3);
-let l2n3 = new TreeNode(6);
-let l2n4 = new TreeNode(9);
-root.left = l1n1;
-root.right = l1n2;
-l1n1.left = l2n1;
-l1n1.right = l2n2;
-l1n2.left = l2n3;
-l1n2.right = l2n4;
+root.left = new TreeNode(2);
+root.left.left = new TreeNode(1);
+root.left.right = new TreeNode(3);
+root.right = new TreeNode(7);
+root.right.left = new TreeNode(6);
+root.right.right = new TreeNode(9);
 
-let ans = invertTree(root);
-//4,7,9,null,null,6,null,null,2,3,null,null,1,null,null
-console.log(root);
+console.log(invertTree(root));
