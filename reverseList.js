@@ -1,18 +1,18 @@
-/**
- * Definition for singly-linked list.
- * function ListNode(val) {
- *     this.val = val;
- *     this.next = null;
- * }
- */
+/*
+206. Reverse Linked List
+Reverse a singly linked list.
+
+单链反转
+1->2->3->4->5->NULL
+5->4->3->2->1->NULL
+
+*/
+
 function ListNode(val) {
   this.val = val;
   this.next = null;
 }
-/**
- * @param {ListNode} head
- * @return {ListNode}
- */
+
 var reverseList = function (head) {
   let cur = head;
   let ans = null;
@@ -31,9 +31,7 @@ head.next.next = new ListNode(3);
 head.next.next.next = new ListNode(4);
 head.next.next.next.next = new ListNode(5);
 
-// let ans = reverseList(head);
-// console.log(ans);
-
+// console.log(reverseList(head));
 
 var reverseList2 = function (head) {
   if(head==null || head.next==null) return head;
@@ -43,6 +41,4 @@ var reverseList2 = function (head) {
   return ans;
 }
 
-let ans2 = reverseList2(head);
-console.log(ans2);
-
+console.log(reverseList2(head));
