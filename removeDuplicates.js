@@ -1,23 +1,17 @@
-var removeDuplicates = function(nums) {
+/*
+26. Remove Duplicates from Sorted Array
+Given a sorted array nums, remove the duplicates in-place such that each element appear only once and return the new length.
+Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.
+
+*/
+
+var removeDuplicates = function (nums) {
   let i = 0;
-  while(i < nums.length-1){
-    if(nums[i] == nums[i+1]){
-
-      //way1 remove nums ele
-      // for(let j = i+2; j < nums.length; j++){
-      //   nums[j-1] = nums[j];
-      // }
-      // nums.length--;
-
-      //way2: remove nums ele
-      nums.splice(i+1, 1);
-    }else{
-      i++;
-    }
+  while (i < nums.length - 1) {
+    nums[i] == nums[i + 1] ? nums.splice(i + 1, 1) : i++;
   }
-  return nums;
 };
 
-let nums = [0,0,1,1,1,2,2,3,3,4];
+let nums = [1, 1, 2];
 removeDuplicates(nums);
 console.log(nums);
