@@ -1,33 +1,25 @@
 /*
-Input: [0,1,0,3,12]
-Output: [1,3,12,0,0]
+283. Move Zeroes
+Given an array nums, write a function to move all 0's to the end of it while maintaining the relative order of the non-zero elements.
 
-defined zeroCount
-foreach nums
-  if nums[i] == 0, zeroCount++
-  if zeroCount>0 need to move element,
-    num[i-zeroCount] = nums[i], nums[i] = 0
+把数组的全部0移到末尾
+当前元素不为0时，看看这个元素前面是否出现过0，如果出现过就移动，然后把这个元素就变为0
 */
 
-/**
- * @param {number[]} nums
- * @return {void} Do not return anything, modify nums in-place instead.
- */
-var moveZeroes = function(nums) {
+var moveZeroes = function (nums) {
   let zeroCount = 0;
   for (let i = 0; i < nums.length; i++) {
-    if(nums[i] == 0){
-      zeroCount++;
-    }else if(zeroCount > 0){
-      nums[i-zeroCount] = nums[i];
+    if (nums[i] == 0) zeroCount++;
+    if (nums[i] != 0 && zeroCount > 0) {
+      nums[i - zeroCount] = nums[i];
       nums[i] = 0;
     }
   }
 };
 
 let nums;
-// nums = [0,1,0,3,12];
-nums = [1];
+nums = [0, 1, 0, 3, 12];
+// nums = [1];
 // nums = [1,0];
 moveZeroes(nums);
 console.log(nums);
