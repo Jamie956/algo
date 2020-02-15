@@ -1,7 +1,8 @@
 /*
 21. Merge Two Sorted Lists
-
 Merge two sorted linked lists and return it as a new list. The new list should be made by splicing together the nodes of the first two lists.
+
+合并两个有序单链，返回一个新的有序单链
 */
 
 function ListNode(val) {
@@ -10,73 +11,14 @@ function ListNode(val) {
 }
 
 var mergeTwoLists = function (l1, l2) {
-  if (!l1) {
-    return l2
-  }
-  if (!l2) {
-    return l1
-  }
-  let cur1 = l1;
-  let cur2 = l2;
-  let head = l1;
-  let previous = l1;
-
-  while (cur2) {
-    if (cur2.val <= head.val) {
-      let node = new ListNode(cur2.val);
-      node.next = head;
-      head = node;
-
-      cur1 = head;
-      cur2 = cur2.next;
-    } else {
-      cur1 = head;
-      while (cur1) {
-        previous = cur1;
-        cur1 = cur1.next;
-        if ((cur1 == null) && (cur2.val >= previous.val)) {
-          let node = new ListNode(cur2.val);
-          previous.next = node;
-
-          cur2 = cur2.next;
-          break;
-        } else if (cur2.val < cur1.val) {
-          let node = new ListNode(cur2.val);
-          previous.next = node;
-          node.next = cur1;
-
-          cur2 = cur2.next;
-          break;
-        }
-      }
-    }
-  }
-  return head;
-};
-
-//1->5->7
-let n1 = new ListNode(1);
-let n2 = new ListNode(5);
-let n3 = new ListNode(7);
-n1.next = n2;
-n2.next = n3;
-
-//2->4->8
-let n4 = new ListNode(2);
-let n5 = new ListNode(4);
-let n6 = new ListNode(8);
-n4.next = n5;
-n5.next = n6;
-
-var mergeTwoLists2 = function (l1, l2) {
   if (l1 === null) return l2;
   if (l2 === null) return l1;
 
   if (l1.val < l2.val) {
-    l1.next = mergeTwoLists2(l1.next, l2);
+    l1.next = mergeTwoLists(l1.next, l2);
     return l1;
   } else {
-    l2.next = mergeTwoLists2(l1, l2.next);
+    l2.next = mergeTwoLists(l1, l2.next);
     return l2;
   }
 };
@@ -96,5 +38,15 @@ var mergeTwoLists2 = function (l1, l2) {
 (7,8) => 7->8
 (null,8) => 8
 */
-let ans = mergeTwoLists2(l1, l2);
-console.log(ans);
+
+//1->5->7
+let l1 = new ListNode(1);
+l1.next = new ListNode(5);
+l1.next.next = new ListNode(7);
+
+//2->4->8
+let l2 = new ListNode(2);
+l2.next = new ListNode(4);
+l2.next.next = new ListNode(8);
+
+console.log(mergeTwoLists(l1, l2));
