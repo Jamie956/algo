@@ -1,36 +1,24 @@
 /*
-pathSum(root, sum){
-  if root==null => 0
-  return pathSum(root.left,sum) + pathSum(root.right,sum) + paths(root,sum);
-}
+437. Path Sum III
+You are given a binary tree in which each node contains an integer value.
 
-paths(root,sum){
-  if root==null => o
-  defined count=0
-  if(root.val == sum) count++
-  count += paths(root.left,sum-root.val)
-  count += paths(root.right,sum-root.val)
-  return count
-}
+Find the number of paths that sum to a given value.
+
+The path does not need to start or end at the root or a leaf, but it must go downwards (traveling only from parent nodes to child nodes).
+
+给出一个二叉树，每个节点都是整数
+有多少条这样的路径，他们的和等于 sum
+路径可由任何位置开始，但方向必须向下
+
+终止条件 node==null
 */
 
-/**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
- */
 function TreeNode(val){
   this.val = val;
   this.left = null;
   this.right = null;
 }
-/**
- * @param {TreeNode} root
- * @param {number} sum
- * @return {number}
- */
+
 var pathSum = function(root, sum) {
   if(root==null) return 0;
   return paths(root,sum) + pathSum(root.left,sum) + pathSum(root.right,sum);
@@ -44,25 +32,13 @@ function paths(root, sum){
 }
 
 let root = new TreeNode(10);
-let l1n1 = new TreeNode(5);
-let l1n2 = new TreeNode(-3);
-let l2n1 = new TreeNode(3);
-let l2n2 = new TreeNode(2);
-let l2n3 = new TreeNode(11);
-let l3n1 = new TreeNode(3);
-let l3n2 = new TreeNode(-2);
-let l3n3 = new TreeNode(1);
+root.left = new TreeNode(5);
+root.right = new TreeNode(-3);
+root.left.left = new TreeNode(3);
+root.left.right = new TreeNode(2);
+root.left.left.left = new TreeNode(3);
+root.left.left.right = new TreeNode(-2);
+root.left.right.right = new TreeNode(1);
+root.right.right = new TreeNode(11);
 
-root.left = l1n1;
-root.right = l1n2;
-l1n1.left = l2n1;
-l1n1.right = l2n2;
-l2n1.left = l3n1;
-l2n1.right = l3n2
-l2n2.right = l3n3;
-l1n2.right = l2n3;
-
-let sum = 8;
-let ans = pathSum(root, 8);
-console.log(ans);
-
+console.log(pathSum(root, 8));
