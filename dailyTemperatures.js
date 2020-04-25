@@ -1,31 +1,32 @@
 /*
 739. Daily Temperatures
-Given a list of daily temperatures T, return a list such that, for each day in the input, tells you how many days you would have to wait until a warmer temperature. If there is no future day for which this is possible, put 0 instead.
+Given a list of daily temperatures T, return a list such that, 
+for each day in the input, tells you how many days you would have to wait 
+until a warmer temperature. If there is no future day for which this is possible, put 0 instead.
+
+core, today temperatures compare to some day in future, 
+  the key point is find the future day, 
+  the day closest to today and temperatures large than today
+
+foreach from end to start
+a stack recording the index j that T[j] is the top point before
+if current T[i] >= the top point value, current T[i] become the top point
+if current T[i] < top point value, calculate top point index j - current index i
+  on day i, will warmer after j-i day
+  store index j
 */
 
-/**
- * @param {number[]} T
- * @return {number[]}
- */
 var dailyTemperatures = function (T) {
-  let stack = [];
-  let ans = [];
-  for (let i = T.length - 1; i >= 0; i--) {
-    while (T[i] >= T[stack[stack.length - 1]]) {
-      stack.pop();
+  let indexArr = [];
+  let ret = [];
+  for (let i = T.length-1; i >= 0; i--) {
+    while(T[i]>=T[indexArr[indexArr.length-1]]){
+      indexArr.pop();
     }
-    ans[i] = (stack.length == 0) ? 0 : (stack[stack.length - 1] - i);
-    stack.push(i);
+    ret[i] = (indexArr.length >0) ? indexArr[indexArr.length-1]-i :0;
+    indexArr.push(i);
   }
-  return ans;
+  return ret;
 };
-
-/*
-从最后一位开始遍历数组T
-如果当前T[i]>= T[j]（顶栈元素j），那么弹出顶栈元素，直到找到T[i]<T[j]
-如果栈为空，说明不存在比T[i]大的温度，那么ans[i]=0
-如果栈有值，距离升温的天数就 i与顶栈元素之差的绝对值，and[i]=|i-j|
-i入栈
-*/
 
 console.log(dailyTemperatures([89, 62, 70, 58, 47, 47, 46, 76, 100, 70]));//[8,1,5,4,3,2,1,1,0,0]
