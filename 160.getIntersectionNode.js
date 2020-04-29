@@ -1,17 +1,18 @@
 /*
 160. Intersection of Two Linked Lists
 Write a program to find the node at which the intersection of two singly linked lists begins.
+
+to find the node that two list meet with each
+using double cursor,
+cursor move to head of another B list when its cursor goto A list tail,
+some point they will meet with, listA'=listB'
 */
 
 function ListNode(val) {
   this.val = val;
   this.next = null;
 }
-/**
- * @param {ListNode} headA
- * @param {ListNode} headB
- * @return {ListNode}
- */
+
 var getIntersectionNode = function (headA, headB) {
   if (headA == null || headB == null) return null;
   let curA = headA;
@@ -46,8 +47,3 @@ headB.next = public;
 
 console.log(getIntersectionNode(headA, headB));
 
-/*
-找两条单链共同的节点，不仅是节点的值相等，而且是同一个对象
-AB链各一个指针，假设A链较短，会先满足node==null，说明指针已经到这条链的末尾，这时将指针指向B链的head
-当B链的指针走到末尾即node==null，使指针指向A链，这样做可以使两个指针到尾部的距离都是相等的，意味着指针会相遇（如果两条链有共同节点）
-*/
