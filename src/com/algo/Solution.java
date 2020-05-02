@@ -1,28 +1,12 @@
 package com.algo;
 
+import com.dataSctruct.ListNode;
 import com.dataSctruct.TreeNode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Solution {
-    public static void main(String[] args) {
-        test();
-    }
-
-    private static void test() {
-        TreeNode n1 = new TreeNode(3);
-        TreeNode n2 = new TreeNode(9);
-        TreeNode n3 = new TreeNode(20);
-        TreeNode n4 = new TreeNode(15);
-        TreeNode n5 = new TreeNode(7);
-
-        n1.left = n2;
-        n1.right = n3;
-        n3.left = n4;
-        n4.right = n5;
-
-        int ret = new Solution().minDepth(n1);
-        System.out.println(ret);
-    }
-
     /*
     111. Minimum Depth of Binary Tree
     Given a binary tree, find its minimum depth.
@@ -30,17 +14,7 @@ public class Solution {
 
     Note: A leaf is a node with no children.
      */
-
-    /**
-     * Definition for a binary tree node.
-     * public class TreeNode {
-     * int val;
-     * TreeNode left;
-     * TreeNode right;
-     * TreeNode(int x) { val = x; }
-     * }
-     */
-    private int minDepth(TreeNode root) {
+    public int minDepth(TreeNode root) {
         if (root == null) return 0;
 
         int l = minDepth(root.left);
@@ -53,4 +27,125 @@ public class Solution {
         }
     }
 
+    /**
+     * Definition for singly-linked list.
+     * public class ListNode {
+     * int val;
+     * ListNode next;
+     * ListNode(int x) { val = x; }
+     * }
+     * head:
+     * null
+     * 1
+     * 1->2
+     * 1->2->3
+     */
+    public static ListNode deleteDuplicates(ListNode head) {
+        if (head == null) return null;
+        if (head.next == null) return head;
+
+        ListNode cur = head;
+        while (cur.next != null) {
+            if (cur.val == cur.next.val) {
+                cur.next = cur.next.next;
+            } else {
+                cur = cur.next;
+            }
+        }
+        return head;
+    }
+
+    /*
+
+     */
+    public boolean isBalanced(TreeNode root) {
+        return recursion(root) != -1;
+    }
+    public int recursion(TreeNode node) {
+
+        if (node == null) return 0;
+
+        int l = recursion(node.left);
+        if (l == -1) return -1;
+
+        int r = recursion(node.right);
+        if (r == -1) return -1;
+
+        if (Math.abs(l - r) > 1) return -1;
+
+        return Math.max(l, r) + 1;
+
+    }
+
+    /*
+    100. Same Tree
+    Given two binary trees, write a function to check if they are the same or not.
+     */
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+        if ((p == null) && (q == null)) return true;
+        if ((p == null) || (q == null)) return false;
+        if (p.val != q.val) return false;
+
+        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+    }
+
+    /*
+
+     */
+    public int mySqrt(int a) {
+        long x = a;
+
+        while (x * x > a) {
+            x = (x + a / x) / 2;
+        }
+
+        return (int) x;
+    }
+
+    /*
+
+     */
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        List<List<Integer>> list = new ArrayList<>();
+        List<List<Integer>> ret = new ArrayList<>();
+        recursion(root, 0, list);
+
+        for (int i = list.size() - 1; i >= 0; i--) {
+            ret.add(list.size() - 1 - i, list.get(i));
+        }
+        return ret;
+    }
+
+    public void recursion(TreeNode root, int level, List<List<Integer>> list) {
+        if (root == null) return;
+        if (level >= list.size()) list.add(new ArrayList());
+
+        if (root != null) list.get(level).add(root.val);
+        if (root.left != null) recursion(root.left, level + 1, list);
+        if (root.right != null) recursion(root.right, level + 1, list);
+    }
+
+    /*
+    108. Convert Sorted Array to Binary Search Tree
+    Given an array where elements are sorted in ascending order,
+    convert it to a height balanced BST.
+
+    Using the value of sort array element in middle index as root node,
+    then recursion, need to know left and right border,
+    to find middle index element in that range.
+     */
+    public TreeNode sortedArrayToBST(int[] nums) {
+        TreeNode root = recursion(nums, 0, nums.length - 1);
+        return root;
+    }
+
+    private TreeNode recursion(int[] nums, int from, int to) {
+        if (from > to) return null;
+        int p = (from + to) / 2;
+        TreeNode root = new TreeNode(nums[p]);
+        root.left = recursion(nums, from, p - 1);
+        root.right = recursion(nums, p + 1, to);
+
+        return root;
+    }
 }
