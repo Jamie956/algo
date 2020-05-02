@@ -1,5 +1,8 @@
 package com.algo;
 
+
+import com.dataSctruct.TreeNode;
+
 /*
 100. Same Tree
 Given two binary trees, write a function to check if they are the same or not.
@@ -34,12 +37,3 @@ public class IsSameTree {
 }
 
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-
-    TreeNode(int x) {
-        val = x;
-    }
-}
