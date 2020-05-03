@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Solution {
-    /*
-    111. Minimum Depth of Binary Tree
-    Given a binary tree, find its minimum depth.
-    The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.
-
-    Note: A leaf is a node with no children.
+    /**
+     * 111. Minimum Depth of Binary Tree
+     * Given a binary tree, find its minimum depth.
+     * The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.
+     * <p>
+     * Note: A leaf is a node with no children.
      */
     public int minDepth(TreeNode root) {
         if (root == null) return 0;
@@ -61,6 +61,7 @@ public class Solution {
     public boolean isBalanced(TreeNode root) {
         return recursion(root) != -1;
     }
+
     public int recursion(TreeNode node) {
 
         if (node == null) return 0;
@@ -77,9 +78,9 @@ public class Solution {
 
     }
 
-    /*
-    100. Same Tree
-    Given two binary trees, write a function to check if they are the same or not.
+    /**
+     * 100. Same Tree
+     * Given two binary trees, write a function to check if they are the same or not.
      */
     public boolean isSameTree(TreeNode p, TreeNode q) {
         if ((p == null) && (q == null)) return true;
@@ -125,14 +126,14 @@ public class Solution {
         if (root.right != null) recursion(root.right, level + 1, list);
     }
 
-    /*
-    108. Convert Sorted Array to Binary Search Tree
-    Given an array where elements are sorted in ascending order,
-    convert it to a height balanced BST.
-
-    Using the value of sort array element in middle index as root node,
-    then recursion, need to know left and right border,
-    to find middle index element in that range.
+    /**
+     * 108. Convert Sorted Array to Binary Search Tree
+     * Given an array where elements are sorted in ascending order,
+     * convert it to a height balanced BST.
+     * <p>
+     * Using the value of sort array element in middle index as root node,
+     * then recursion, need to know left and right border,
+     * to find middle index element in that range.
      */
     public TreeNode sortedArrayToBST(int[] nums) {
         TreeNode root = recursion(nums, 0, nums.length - 1);
@@ -147,5 +148,19 @@ public class Solution {
         root.right = recursion(nums, p + 1, to);
 
         return root;
+    }
+
+    /**
+     * 112. Path Sum
+     * Given a binary tree and a sum, determine if the tree has a root-to-leaf path
+     * such that adding up all the values along the path equals the given sum.
+     * <p>
+     * Note: A leaf is a node with no children.
+     */
+    public boolean hasPathSum(TreeNode root, int sum) {
+        if (root == null) return false;
+        if (root.left == null && root.right == null) return root.val - sum == 0 ? true : false;
+
+        return hasPathSum(root.left, sum - root.val) || hasPathSum(root.right, sum - root.val);
     }
 }
