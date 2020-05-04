@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Test {
     public static void main(String[] args) {
-        testHasPathSum();
+        testMaxProfit();
     }
 
     private static void testMinDepth() {
@@ -94,15 +94,6 @@ public class Test {
         new Solution().sortedArrayToBST(arr);
     }
 
-    /**
-     *       5
-     *      / \
-     *     4   8
-     *    /   / \
-     *   11  13  4
-     *  /  \      \
-     * 7    2      1
-     */
     public static void testHasPathSum() {
         TreeNode root = new TreeNode(5);
         TreeNode n1 = new TreeNode(4);
@@ -117,13 +108,18 @@ public class Test {
         root.left = n1;
         root.right = n2;
         n1.left = n3;
-        n3.left=n6;
-        n3.right=n7;
+        n3.left = n6;
+        n3.right = n7;
         n2.left = n4;
-        n2.right=n5;
-        n5.right=n8;
+        n2.right = n5;
+        n5.right = n8;
 
-        boolean ret = new Solution().hasPathSum(root,22);
+        boolean ret = new Solution().hasPathSum(root, 22);
         System.out.println(ret);
+    }
+
+    public static void testMaxProfit() {
+        int[] prices = {1,2,3,4,5};
+        new Solution().maxProfit(prices);
     }
 }
