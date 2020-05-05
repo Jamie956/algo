@@ -177,4 +177,41 @@ public class Solution {
         }
         return profit;
     }
+
+    /**
+     * 125. Valid Palindrome
+     * Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.
+     *
+     * compare digit and alphabet
+     */
+    public boolean isPalindrome(String s) {
+        int h=0,t=s.length()-1;
+        while (h<t){
+            while (h<t && !(
+                    (s.charAt(h)>='A' && s.charAt(h)<='Z') ||
+                            (s.charAt(h)>='a' && s.charAt(h)<='z') ||
+                            (s.charAt(h)>='0' && s.charAt(h)<='9')
+                    )){
+                h++;
+            }
+            while (h<t && !(
+                    (s.charAt(t)>='A' && s.charAt(t)<='Z') ||
+                            (s.charAt(t)>='a' && s.charAt(t)<='z') ||
+                            (s.charAt(t)>='0' && s.charAt(t)<='9')
+            )){
+                t--;
+            }
+
+            char hChar = s.charAt(h);
+            char tChar = s.charAt(t);
+            if(hChar>='A' && hChar<='Z') hChar = (char) (hChar + 32);
+            if(tChar>='A' && tChar<='Z') tChar = (char) (tChar + 32);
+
+            if(hChar != tChar) return false;
+            h++;
+            t--;
+        }
+        return true;
+    }
+
 }
