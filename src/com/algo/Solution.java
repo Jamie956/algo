@@ -181,37 +181,50 @@ public class Solution {
     /**
      * 125. Valid Palindrome
      * Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.
-     *
+     * <p>
      * compare digit and alphabet
      */
     public boolean isPalindrome(String s) {
-        int h=0,t=s.length()-1;
-        while (h<t){
-            while (h<t && !(
-                    (s.charAt(h)>='A' && s.charAt(h)<='Z') ||
-                            (s.charAt(h)>='a' && s.charAt(h)<='z') ||
-                            (s.charAt(h)>='0' && s.charAt(h)<='9')
-                    )){
+        int h = 0, t = s.length() - 1;
+        while (h < t) {
+            while (h < t && !((s.charAt(h) >= 'A' && s.charAt(h) <= 'Z') || (s.charAt(h) >= 'a' && s.charAt(h) <= 'z') || (s.charAt(h) >= '0' && s.charAt(h) <= '9'))) {
                 h++;
             }
-            while (h<t && !(
-                    (s.charAt(t)>='A' && s.charAt(t)<='Z') ||
-                            (s.charAt(t)>='a' && s.charAt(t)<='z') ||
-                            (s.charAt(t)>='0' && s.charAt(t)<='9')
-            )){
+            while (h < t && !((s.charAt(t) >= 'A' && s.charAt(t) <= 'Z') || (s.charAt(t) >= 'a' && s.charAt(t) <= 'z') || (s.charAt(t) >= '0' && s.charAt(t) <= '9'))) {
                 t--;
             }
 
             char hChar = s.charAt(h);
             char tChar = s.charAt(t);
-            if(hChar>='A' && hChar<='Z') hChar = (char) (hChar + 32);
-            if(tChar>='A' && tChar<='Z') tChar = (char) (tChar + 32);
+            if (hChar >= 'A' && hChar <= 'Z') hChar = (char) (hChar + 32);
+            if (tChar >= 'A' && tChar <= 'Z') tChar = (char) (tChar + 32);
 
-            if(hChar != tChar) return false;
+            if (hChar != tChar) return false;
             h++;
             t--;
         }
         return true;
     }
 
+    /**
+     * 167. Two Sum II - Input array is sorted
+     * Given an array of integers that is already sorted in ascending order, find two numbers such that they add up to a specific target number.
+     * The function twoSum should return indices of the two numbers such that they add up to the target, where index1 must be less than index2.
+     * <p>
+     * Note:
+     * Your returned answers (both index1 and index2) are not zero-based.
+     * You may assume that each input would have exactly one solution and you may not use the same element twice.
+     */
+    public int[] twoSum(int[] numbers, int target) {
+        int h = 0, t = numbers.length - 1;
+
+        while (h < t) {
+            if (numbers[h] + numbers[t] > target) t--;
+            if (numbers[h] + numbers[t] < target) h++;
+
+            if (numbers[h] + numbers[t] == target) return new int[]{h + 1, t + 1};
+        }
+
+        return new int[]{-1, -1};
+    }
 }

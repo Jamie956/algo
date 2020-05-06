@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Test {
     public static void main(String[] args) {
-        testIsPalindrome();
+        testTwoSum();
     }
 
     private static void testMinDepth() {
@@ -119,12 +119,17 @@ public class Test {
     }
 
     public static void testMaxProfit() {
-        int[] prices = {1,2,3,4,5};
+        int[] prices = {1, 2, 3, 4, 5};
         new Solution().maxProfit(prices);
     }
 
-    public static void testIsPalindrome(){
+    public static void testIsPalindrome() {
         boolean ret = new Solution().isPalindrome("A man, a plan, a canal: Panama");
+        System.out.println(ret);
+    }
+
+    public static void testTwoSum() {
+        int[] ret = new Solution().twoSum(new int[]{2, 7, 11, 15}, 9);
         System.out.println(ret);
     }
 }
