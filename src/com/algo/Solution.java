@@ -227,4 +227,57 @@ public class Solution {
 
         return new int[]{-1, -1};
     }
+
+    /**
+     * 168. Excel Sheet Column Title
+     * Given a positive integer, return its corresponding column title as appear in an Excel sheet.
+     * <p>
+     * 1 -> A
+     * 2 -> B
+     * 3 -> C
+     * ...
+     * 26 -> Z
+     * 27 -> AA
+     * 28 -> AB
+     * ...
+     * 52 -> AZ
+     * <p>
+     * 2591/16=161
+     * 2591%16=15
+     * 2591=161*16+15
+     * <p>
+     * 161/16=10
+     * 161%16=1
+     * 161=16*10+1
+     * 2591=(16*10+1)*16+15
+     * <p>
+     * 2591=10*16^2 + 1*16^1 + 15*16^0
+     * <p>
+     * 701=26*26^1 + 25*26^0
+     * <p>
+     * 51=1*26^1 + 25*26^0
+     * <p>
+     * 52=2*26^1 + 0*26^0
+     * <p>
+     * 53=2*26^1 + 1*26^0
+     * <p>
+     * //case1
+     * 0->A
+     * 1->B
+     * 2->C
+     * <p>
+     * //case2
+     * 4->A
+     * 5->B
+     * 6->C
+     */
+    public String convertToTitle(int n) {
+        StringBuilder sb = new StringBuilder(10);
+        while (n > 0) {
+            n = n - 1;//make 0->A
+            sb.insert(0, (char) ('A' + n % 26));
+            n /= 26;
+        }
+        return sb.toString();
+    }
 }

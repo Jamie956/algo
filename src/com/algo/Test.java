@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Test {
     public static void main(String[] args) {
-        testTwoSum();
+        testConvertToTitle();
     }
 
     private static void testMinDepth() {
@@ -131,5 +131,11 @@ public class Test {
     public static void testTwoSum() {
         int[] ret = new Solution().twoSum(new int[]{2, 7, 11, 15}, 9);
         System.out.println(ret);
+    }
+
+    public static void testConvertToTitle() {
+        String ret = new Solution().convertToTitle(27);
+        System.out.println(ret);
+
     }
 }
