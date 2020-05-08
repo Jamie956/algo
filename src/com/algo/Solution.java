@@ -280,4 +280,51 @@ public class Solution {
         }
         return sb.toString();
     }
+
+    /**
+     * 171. Excel Sheet Column Number
+     * Given a column title as appear in an Excel sheet, return its corresponding column number.
+     * <p>
+     * For example:
+     * <p>
+     * A -> 1
+     * B -> 2
+     * C -> 3
+     * ...
+     * Z -> 26
+     * AA -> 27
+     * AB -> 28
+     * ...
+     * <p>
+     * A -> [65] -> 1*26^0
+     * AA -> [65, 65] -> 1*26^1 + 1*26^0
+     * AB -> [65, 66] -> 1*26^1 + 2*26^0
+     */
+    public int titleToNumber(String s) {
+        int len = s.length();
+        int ret = 0;
+        for (int i = 0; i < len; i++) {
+            ret += (s.charAt(i) - 'A' + 1) * Math.pow(26, len - 1 - i);
+
+        }
+        return ret;
+    }
+
+    /**
+     * 172. Factorial Trailing Zeroes
+     * Given an integer n, return the number of trailing zeroes in n!.
+     */
+    public int trailingZeroes(int n) {
+        /*
+        5 -> 5 4 3 2 1 -> 5 (4 3 2 1) -> 120 -> 5/5=1
+        */
+
+        int ret = 0;
+        while (n >= 5) {
+            ret += n / 5;
+            n /= 5;
+        }
+
+        return ret;
+    }
 }
