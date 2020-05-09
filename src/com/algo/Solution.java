@@ -327,4 +327,60 @@ public class Solution {
 
         return ret;
     }
+
+    /**
+     * 189. Rotate Array
+     * Given an array, rotate the array to the right by k steps, where k is non-negative.
+     * <p>
+     * Follow up:
+     * Try to come up as many solutions as you can, there are at least 3 different ways to solve this problem.
+     * Could you do it in-place with O(1) extra space?
+     */
+    public void rotate(int[] nums, int k) {
+        /*
+        1234567, k=2
+
+        12345(rotate) 67->54321 67
+        5432167(rotate) -> 7612345
+        76(rotate) 12345 -> 6712345
+        */
+
+        k %= nums.length;
+        reverse(nums, 0, nums.length - 1 - k);
+        reverse(nums, 0, nums.length - 1);
+        reverse(nums, 0, k - 1);
+    }
+
+    public void reverse(int[] nums, int h, int t) {
+        while (h < t) {
+            int temp = nums[t];
+            nums[t] = nums[h];
+            nums[h] = temp;
+            h++;
+            t--;
+        }
+    }
+
+    /**
+     * 190. Reverse Bits
+     * Reverse bits of a given 32 bits unsigned integer.
+     */
+    public int reverseBits(int n) {
+        /*
+        0000 0010 1001 0100 0001 1110 1001 1100(first bit)
+
+        n&1 -> get first bit 0
+        ret -> 0000 0000 0000 0000 0000 0000 0000 0000
+        first bit 0<<31 -> 0(move to here)000 0000 0000 0000 0000 0000 0000 0000
+        ret + 0(move to here)000 0000 0000 0000 0000 0000 0000 0000
+            -> 0(add to here)000 0000 0000 0000 0000 0000 0000 0000
+
+        */
+        int ret = 0;
+        for (int i = 31; i >= 0; i--) {
+            ret += (n & 1) << i;
+            n >>>= 1;
+        }
+        return ret;
+    }
 }
